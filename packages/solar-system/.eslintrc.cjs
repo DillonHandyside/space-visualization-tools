@@ -8,11 +8,33 @@ module.exports = {
 	],
 	ignorePatterns: ['dist', '.eslintrc.cjs'],
 	parser: '@typescript-eslint/parser',
-	plugins: ['react-refresh'],
+	plugins: ['react-refresh', 'import'],
 	rules: {
 		'react-refresh/only-export-components': [
 			'warn',
 			{ allowConstantExport: true },
+		],
+		'import/no-restricted-paths': [
+			'error',
+			{
+				zones: [
+					// enforce unidirectional codebase:
+					{
+						target: './src/features',
+						from: './src/pages',
+					},
+					{
+						target: [
+							'./src/components',
+							'./src/hooks',
+							'./src/lib',
+							'./src/types',
+							'./src/utils',
+						],
+						from: ['./src/features', './src/pages'],
+					},
+				],
+			},
 		],
 	},
 };
