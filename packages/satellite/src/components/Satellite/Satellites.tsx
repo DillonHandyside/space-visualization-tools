@@ -17,7 +17,7 @@ const Satellites = ({ tles, color, meshRefs }: SatellitesProps) => {
 
 	const meshRef = useRef<THREE.InstancedMesh>(null);
 	const satellites = useMemo(
-		() => tles.map(({ tle, name }) => tleToSatellite(tle, name)),
+		() => tles && tles.map(({ tle, name }) => tleToSatellite(tle, name)),
 		[tles],
 	);
 

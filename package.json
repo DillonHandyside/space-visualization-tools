@@ -9,12 +9,16 @@
 		"packages/*"
 	],
 	"devDependencies": {
+		"gh-pages": "^6.1.1",
 		"lerna": "^8.1.3"
 	},
 	"scripts": {
 		"dev": "lerna run dev",
 		"dev:solar-system": "lerna run dev --scope @space/solar-system",
 		"dev:satellite": "lerna run dev --scope @space/satellite",
-		"storybook:common-components": "lerna run storybook --scope @space/common-components"
+		"storybook:common-components": "lerna run storybook --scope @space/common-components",
+		"build": "lerna run build --stream",
+		"predeploy": "yarn build",
+		"deploy": "gh-pages -d dist"
 	}
 }

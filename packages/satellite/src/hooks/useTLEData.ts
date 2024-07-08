@@ -19,7 +19,7 @@ export const parseTLEFile = (content: string) => {
 
 const fetchTLEData = async (fileName: string): Promise<TLEData[] | null> => {
 	try {
-		const response = await fetch(`/${fileName}`);
+		const response = await fetch(`${window.location.href}/${fileName}`);
 		const fileContent = await response.text();
 		const parsedData = parseTLEFile(fileContent);
 		return parsedData;
