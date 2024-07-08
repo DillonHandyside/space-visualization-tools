@@ -11,6 +11,7 @@ import SatelliteRaycaster from './components/Satellite/SatelliteRaycaster';
 import { SatelliteProvider } from './components/Satellite/context/SatelliteContext';
 
 import SatelliteHoverLabel from './components/HoverLabel/HoverLabel';
+import SatelliteLeftPanel from './components/LeftPanel';
 
 const App = () => {
 	const meshRefs = useRef<THREE.InstancedMesh[]>([]);
@@ -57,6 +58,7 @@ const App = () => {
 						maxPolarAngle={Math.PI}
 					/>
 				</Canvas>
+				<SatelliteLeftPanel />
 				<SatelliteHoverLabel />
 			</div>
 		</SatelliteProvider>
