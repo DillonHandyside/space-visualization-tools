@@ -10,6 +10,8 @@ import Satellites from './components/Satellite/Satellites';
 import SatelliteRaycaster from './components/Satellite/SatelliteRaycaster';
 import { SatelliteProvider } from './components/Satellite/context/SatelliteContext';
 
+import SatelliteHoverLabel from './components/HoverLabel/HoverLabel';
+
 const App = () => {
 	const meshRefs = useRef<THREE.InstancedMesh[]>([]);
 	const { heoTles, geoTles, meoTles, leoTles } = useTLEData();
@@ -55,6 +57,7 @@ const App = () => {
 						maxPolarAngle={Math.PI}
 					/>
 				</Canvas>
+				<SatelliteHoverLabel />
 			</div>
 		</SatelliteProvider>
 	);
