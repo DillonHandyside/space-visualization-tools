@@ -15,6 +15,7 @@
 		"dev": "lerna run dev",
 		"dev:solar-system": "lerna run dev --scope @space/solar-system",
 		"dev:satellite": "lerna run dev --scope @space/satellite",
-		"storybook:common-components": "lerna run storybook --scope @space/common-components"
+		"storybook:common-components": "lerna run storybook --scope @space/common-components",
+		"build": "lerna run build --stream"
 	}
 }
