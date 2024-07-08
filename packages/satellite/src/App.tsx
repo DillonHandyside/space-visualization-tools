@@ -7,6 +7,7 @@ import { useTLEData } from './hooks/useTLEData';
 
 import Earth from './components/Earth/Earth';
 import Satellites from './components/Satellite/Satellites';
+import SatelliteRaycaster from './components/Satellite/SatelliteRaycaster';
 import { SatelliteProvider } from './components/Satellite/context/SatelliteContext';
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
 						color="#59BFFF"
 						meshRefs={meshRefs}
 					/>
+					<SatelliteRaycaster meshRefs={meshRefs} />
 					<OrbitControls
 						zoomSpeed={0.5}
 						minDistance={2}
