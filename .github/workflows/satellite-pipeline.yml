@@ -30,6 +30,11 @@ jobs:
     - name: Build project
       run: yarn build
 
+    - name: Move builds to docs folder
+      run: |
+        mkdir -p docs/satellite
+        mv ./packages/satellite/build/* docs/satellite/
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
