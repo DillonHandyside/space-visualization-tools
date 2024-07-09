@@ -12,6 +12,7 @@ import { SatelliteProvider } from './components/Satellite/context/SatelliteConte
 
 import SatelliteHoverLabel from './components/HoverLabel/HoverLabel';
 import SatelliteLeftPanel from './components/LeftPanel';
+import GeoOrbitLineRenderer from './components/Earth/GeoOrbitLineRenderer';
 
 const App = () => {
 	const meshRefs = useRef<THREE.InstancedMesh[]>([]);
@@ -28,6 +29,7 @@ const App = () => {
 				<Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }}>
 					<ambientLight intensity={3} />
 					<Earth />
+					<GeoOrbitLineRenderer />
 					<Satellites
 						tles={heoTles!}
 						color="#00FE26"
@@ -50,7 +52,7 @@ const App = () => {
 					/>
 					<SatelliteRaycaster meshRefs={meshRefs} />
 					<OrbitControls
-						zoomSpeed={0.5}
+						zoomSpeed={1}
 						minDistance={2}
 						maxDistance={100}
 						enablePan={false}
