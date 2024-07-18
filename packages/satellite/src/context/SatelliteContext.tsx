@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react';
-import { Satellite } from '../types';
+import { Satellite } from '../components/Satellite/types';
 
 interface SatelliteContextProps {
 	hoveredSatellite: Satellite | null;

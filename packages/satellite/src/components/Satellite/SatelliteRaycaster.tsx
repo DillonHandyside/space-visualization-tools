@@ -1,41 +1,55 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useCallback, useEffect, useRef } from 'react';
-import { useSatelliteContext } from './context/useSatelliteContext';
+import { useSatelliteContext } from '../../context/useSatelliteContext';
+import { Satellite } from './types';
 
 interface SatelliteRaycasterProps {
 	meshRefs: React.MutableRefObject<THREE.InstancedMesh[]>;
 }
 
 const SatelliteRaycaster = ({ meshRefs }: SatelliteRaycasterProps) => {
-	const { camera, mouse, raycaster, gl } = useThree();
+	const { camera, pointer, raycaster, gl } = useThree();
 	const { setHoveredSatellite, setSelectedSatellite } = useSatelliteContext();
 	const isDragging = useRef(false);
 	const mouseDownPos = useRef({ x: 0, y: 0 });
 
-	useFrame(() => {
-		raycaster.setFromCamera(mouse, camera);
-		let found = false;
+	const performRaycast = useCallback(
+		(setSatellite: (satellite: Satellite | null) => void) => {
+			raycaster.setFromCamera(pointer, camera);
+			let found = false;
 
-		for (let i = 0; i < meshRefs.current.length; i++) {
-			const meshRef = meshRefs.current[i];
-			if (meshRef) {
-				const intersects = raycaster.intersectObject(meshRef);
-				if (intersects.length > 0) {
-					const intersectedId = intersects[0].instanceId!;
-					const intersectedSatellite =
-						meshRef.userData.satellites[intersectedId];
-					setHoveredSatellite(intersectedSatellite);
-					found = true;
-					break;
+			for (let i = 0; i < meshRefs.current.length; i++) {
+				const meshRef = meshRefs.current[i];
+				if (meshRef) {
+					const intersects = raycaster.intersectObject(meshRef);
+					if (intersects.length > 0) {
+						const intersectedId = intersects[0].instanceId!;
+						const intersectedSatellite =
+							meshRef.userData.satellites[intersectedId];
+						setSatellite(intersectedSatellite);
+						found = true;
+						break;
+					}
 				}
 			}
-		}
 
-		if (!found) {
-			setHoveredSatellite(null);
-		}
+			if (!found) {
+				setSatellite(null);
+			}
+		},
+		[camera, meshRefs, pointer, raycaster],
+	);
+
+	useFrame(() => {
+		performRaycast(setHoveredSatellite);
 	});
+
+	const handleMouseUp = useCallback(() => {
+		if (!isDragging.current) {
+			performRaycast(setSelectedSatellite);
+		}
+	}, [performRaycast, setSelectedSatellite]);
 
 	const handleMouseDown = useCallback((event: MouseEvent) => {
 		isDragging.current = false;
@@ -49,31 +63,6 @@ const SatelliteRaycaster = ({ meshRefs }: SatelliteRaycasterProps) => {
 			isDragging.current = true;
 		}
 	}, []);
-
-	const handleMouseUp = useCallback(() => {
-		if (!isDragging.current) {
-			raycaster.setFromCamera(mouse, camera);
-			let found = false;
-			for (let i = 0; i < meshRefs.current.length; i++) {
-				const meshRef = meshRefs.current[i];
-				if (meshRef) {
-					const intersects = raycaster.intersectObject(meshRef);
-					if (intersects.length > 0) {
-						const intersectedId = intersects[0].instanceId!;
-						const intersectedSatellite =
-							meshRef.userData.satellites[intersectedId];
-						setSelectedSatellite(intersectedSatellite);
-						found = true;
-						break;
-					}
-				}
-			}
-
-			if (!found) {
-				setSelectedSatellite(null);
-			}
-		}
-	}, [camera, meshRefs, mouse, raycaster, setSelectedSatellite]);
 
 	useEffect(() => {
 		const domElement = gl.domElement;

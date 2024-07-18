@@ -1,4 +1,4 @@
-import { useSatelliteContext } from './Satellite/context/useSatelliteContext';
+import { useSatelliteContext } from '../context/useSatelliteContext';
 import LeftPanel from '../../../common-components/src/components/LeftPanel/LeftPanel';
 
 const SatelliteLeftPanel = () => {

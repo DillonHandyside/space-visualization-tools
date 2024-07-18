@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import HoverLabel from '../../../../common-components/src/components/HoverLabel/HoverLabel';
-import { useSatelliteContext } from '../Satellite/context/useSatelliteContext';
+import { useSatelliteContext } from '../../context/useSatelliteContext';
 
 const SatelliteHoverLabel = () => {
 	const { hoveredSatellite } = useSatelliteContext();
