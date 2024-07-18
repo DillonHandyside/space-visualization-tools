@@ -1,0 +1,8 @@
+.playback-panel {
+	color: white;
+	position: absolute;
+	bottom: 0;
+	margin-left: 1em;
+	margin-bottom: 1em;
+	width: 100%;
+}
